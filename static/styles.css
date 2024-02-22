@@ -1,0 +1,16 @@
+#drop_zone {
+    border: 2px dashed #0087F7;
+    border-radius: 5px;
+    width: 300px;
+    height: 200px;
+    color: #0087F7;
+    text-align: center;
+    line-height: 200px;
+    font-size: 24px;
+    margin: 20px auto;
+}
+
+#upload_btn {
+    display: block;
+    margin: 20px auto;
+}
