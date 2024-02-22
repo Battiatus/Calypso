@@ -1,48 +1,44 @@
-from flask import Flask, request, render_template, send_from_directory, jsonify
+# src/server.py
+
+from flask import Flask, request, send_from_directory, render_template, redirect, url_for
 import os
-from werkzeug.utils import secure_filename
-from converter import evtx_to_json, evtx_to_csv, evtx_to_xml  # Assurez-vous que les chemins d'importation sont corrects
+from converter import evtx_to_json, evtx_to_csv, evtx_to_xml
+import tempfile
+import shutil
 
 app = Flask(__name__, template_folder='../templates', static_folder='../static')
-UPLOAD_FOLDER = 'uploads'
+UPLOAD_FOLDER = tempfile.mkdtemp()
 ALLOWED_EXTENSIONS = {'evtx'}
-
-app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
-@app.route('/')
+@app.route('/', methods=['GET', 'POST'])
 def index():
+    if request.method == 'POST':
+        if 'file' not in request.files:
+            return redirect(request.url)
+        file = request.files['file']
+        if file.filename == '' or not allowed_file(file.filename):
+            return redirect(request.url)
+        output_format = request.form['format']
+        temp_path = os.path.join(UPLOAD_FOLDER, file.filename)
+        file.save(temp_path)
+        output_path = os.path.splitext(temp_path)[0] + f'.{output_format}'
+        if output_format == 'json':
+            evtx_to_json(temp_path, output_path)
+        elif output_format == 'csv':
+            evtx_to_csv(temp_path, output_path)
+        elif output_format == 'xml':
+            evtx_to_xml(temp_path, output_path)
+        return send_from_directory(directory=os.path.dirname(output_path), filename=os.path.basename(output_path), as_attachment=True)
     return render_template('index.html')
 
-@app.route('/upload', methods=['POST'])
-def upload_file():
-    if 'file' not in request.files:
-        return jsonify({'error': 'Aucun fichier part.'}), 400
-    file = request.files['file']
-    if file.filename == '':
-        return jsonify({'error': 'Aucun fichier sélectionné.'}), 400
-    if file and allowed_file(file.filename):
-        filename = secure_filename(file.filename)
-        filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-        file.save(filepath)
-        # Ici, choisissez le format de conversion en fonction de votre logique
-        output_format = request.form.get('format', 'json')  # Exemple : obtenir le format depuis le formulaire
-        if output_format == 'json':
-            output_filepath = filepath + '.json'
-            evtx_to_json(filepath, output_filepath)
-        elif output_format == 'csv':
-            output_filepath = filepath + '.csv'
-            evtx_to_csv(filepath, output_filepath)
-        elif output_format == 'xml':
-            output_filepath = filepath + '.xml'
-            evtx_to_xml(filepath, output_filepath)
-        else:
-            return jsonify({'error': 'Format de conversion non supporté.'}), 400
-        return send_from_directory(directory=os.path.dirname(output_filepath), filename=os.path.basename(output_filepath), as_attachment=True)
-    return jsonify({'error': 'Extension de fichier non autorisée.'}), 400
+@app.route('/cleanup', methods=['GET'])
+def cleanup():
+    shutil.rmtree(UPLOAD_FOLDER)
+    os.makedirs(UPLOAD_FOLDER, exist_ok=True)
+    return redirect(url_for('index'))
 
 if __name__ == '__main__':
-    os.makedirs(UPLOAD_FOLDER, exist_ok=True)
     app.run(debug=True)

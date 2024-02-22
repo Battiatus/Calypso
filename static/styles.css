@@ -1,16 +1,41 @@
-#drop_zone {
-    border: 2px dashed #0087F7;
-    border-radius: 5px;
-    width: 300px;
-    height: 200px;
-    color: #0087F7;
-    text-align: center;
-    line-height: 200px;
-    font-size: 24px;
-    margin: 20px auto;
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
 }
 
-#upload_btn {
-    display: block;
-    margin: 20px auto;
+/* form {
+    margin-top: 20px;
+} */
+
+footer {
+    text-align: center;
+    padding: 5px;
+    background-color: #abbaba;
+    color: #000;
+    position: absolute;
+    width: 100%; 
+    bottom: 0; left: 0; right: 0;
+
+}
+.left-side {
+    background-color: #FFFFFF;
+    flex-basis: 30%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.right-side {
+    background-color: #7a7883;
+    flex-basis: 70%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #FFFFFF;
+}
+.page-container {
+    display: flex;
+    /* height: 100vh; */
 }
