@@ -1,14 +1,41 @@
+<!-- templates/index.html -->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Convertisseur EVTX</title>
-    <link rel="stylesheet" href="/static/styles.css">
+    <title>Convertir EVTX</title>
+    <link rel="shortcut icon" type="image/png" href="./static/img/favicon.png" />
+    
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 <body>
-    <div id="drop_zone">Déposez vos fichiers ou dossiers ici</div>
-    <input type="file" id="file_input" multiple directory webkitdirectory moxdirectory style="display: none;">
-    <button id="upload_btn">Télécharger le résultat</button>
-    <script src="/static/scripts.js"></script>
+    <div class="page-container">
+        <img class="logo" src="./static/img/favicon.png" alt="Logo" />
+        <div class="left-side">
+            <h2>Téléversez un fichier EVTX pour la conversion</h2>
+            </div>
+        </div>
+   
+   <div class="right-side ">
+    <form action="/" method="post" enctype="multipart/form-data">
+        <input type="file" name="file" required>
+        <select name="format">
+            <option value="json">JSON</option>
+            <option value="csv">CSV</option>
+            <option value="xml">XML</option>
+        </select>
+        <button type="submit">Convertir</button>
+    </form>
+    </div>
+    <div id="spinner" style="display:none;">
+        <div class="loader"></div>
+        <p>En cours de téléchargement...</p>
+    </div>
+    
+    </div>
 </body>
+<footer>
+    <small>Copyright © 2024  Battiatus © Ayaros-technology. Tous droits réservés.</small>
+  </footer>
 </html>
