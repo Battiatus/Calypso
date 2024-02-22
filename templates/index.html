@@ -5,30 +5,34 @@
 <head>
     <meta charset="UTF-8">
     <title>Convertir EVTX</title>
+    <link rel="shortcut icon" type="image/png" href="./static/img/favicon.png" />
+    
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 <body>
     <div class="page-container">
+        <img class="logo" src="./static/img/favicon.png" alt="Logo" />
         <div class="left-side">
             <h2>Téléversez un fichier EVTX pour la conversion</h2>
             </div>
         </div>
    
    <div class="right-side ">
-        <form action="/" method="post" enctype="multipart/form-data">
-            <label for="file">Fichier EVTX :</label>
-            <input type="file" id="file" name="file" required>
-            <br>
-            <label for="format">Choisir le format de sortie :</label>
-            <select name="format" id="format" required>
-                <option value="json">JSON</option>
-                <option value="csv">CSV</option>
-                <option value="xml">XML</option>
-            </select>
-            <br>
-            <button type="submit">Convertir</button>
-        </form>
+    <form action="/" method="post" enctype="multipart/form-data">
+        <input type="file" name="file" required>
+        <select name="format">
+            <option value="json">JSON</option>
+            <option value="csv">CSV</option>
+            <option value="xml">XML</option>
+        </select>
+        <button type="submit">Convertir</button>
+    </form>
     </div>
+    <div id="spinner" style="display:none;">
+        <div class="loader"></div>
+        <p>En cours de téléchargement...</p>
+    </div>
+    
     </div>
 </body>
 <footer>
