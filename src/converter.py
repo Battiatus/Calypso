@@ -21,8 +21,8 @@ def evtx_to_json(evtx_path, output_path):
 
 def evtx_to_csv(evtx_path, output_path):
     records = []
-    with open(evtx_path, 'rb') as evtx_file:
-        for xml, _ in evtx_file_xml_view(FileHeader(evtx_file, 0x0)):
+    with open(evtx_path, 'rb') as evtx_file:  # Ouvrir le fichier en mode binaire
+        for xml, _ in evtx_file_xml_view(FileHeader(evtx_file.read(), 0x0)):  # Lire le contenu du fichier en tant qu'objet bytes
             try:
                 records.append(ET.tostring(ET.fromstring(xml), encoding='unicode'))
             except ET.ParseError:
