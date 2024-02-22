@@ -32,3 +32,13 @@ def evtx_to_csv(evtx_path, output_path):
         writer.writerow(['Event'])
         for record in records:
             writer.writerow([record])
+            
+            
+def evtx_to_xml(evtx_path, output_path):
+    with open(evtx_path, 'rb') as evtx_file:  # Ouvrir le fichier en mode binaire
+        evtx_data = evtx_file.read()  # Lire le contenu du fichier en tant qu'objet bytes
+    with open(output_path, 'w') as xml_file:
+        xml_file.write("<Events>")
+        for xml, _ in evtx_file_xml_view(FileHeader(evtx_data, 0x0)):  # Utiliser les données binaires directement
+            xml_file.write(xml)
+        xml_file.write("</Events>")

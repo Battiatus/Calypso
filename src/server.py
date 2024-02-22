@@ -1,7 +1,7 @@
 from flask import Flask, request, send_from_directory, render_template, redirect, url_for, flash, send_file
 from werkzeug.utils import secure_filename
 import os
-from converter import evtx_to_json, evtx_to_csv#, evtx_to_xml
+from converter import evtx_to_json, evtx_to_csv, evtx_to_xml
 import tempfile
 import shutil
 
