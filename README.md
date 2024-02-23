@@ -10,9 +10,9 @@ pip install -r requirements.txt
 ```	
 
 ## Utilisation
-Pour utiliser le convertisseur, naviguez dans le dossier src et exécutez :
+Pour utiliser le convertisseur, exécutez :
 ```python	
-python cli.py 
+python .\src\server.py
 ```	
 
 
