@@ -1,4 +1,4 @@
-# EVTX Converter
+# Calypso 
 
 ## Description
 Ce projet permet de convertir des fichiers EVTX en formats CSV, JSON ou XML.
