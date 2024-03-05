@@ -8,14 +8,11 @@ Pour installer les dépendances du projet, exécutez :
 ```python
 pip install -r requirements.txt
 ```	
-
 ## Utilisation
 Pour utiliser le convertisseur, exécutez :
 ```python	
 python .\src\server.py
 ```	
-
-
 Suivez les instructions à l'écran pour choisir le format de sortie et le chemin d'entrée.
 
 ## Tests
