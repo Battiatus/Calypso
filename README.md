@@ -15,7 +15,6 @@ python .\src\server.py
 ```	
 Suivez les instructions à l'écran pour choisir le format de sortie et le chemin d'entrée.
 
-
 ## Tests
 Pour exécuter les tests, assurez-vous d'être dans le répertoire racine du projet et exécutez :
 
