@@ -1,15 +1,16 @@
 # Calypso 
 
-## Description
+### Description
 Ce projet permet de convertir des fichiers EVTX en formats CSV, JSON ou XML.
 
-## Installation
+### Installation
 Pour installer les dépendances du projet, exécutez :
 
 ```python
 pip install -r requirements.txt
-```	
-## Utilisation
+```
+
+### Utilisation
 Pour utiliser le convertisseur, exécutez :
 ```python	
 python .\src\server.py
